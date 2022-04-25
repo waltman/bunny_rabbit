@@ -25,12 +25,11 @@ def show_result(b, r):
     print(r)
     print()
 
-variables = 'BUNYRAIT'
-for c in combinations(range(10), 8):
+variables = 'BUNYAIT'
+for c in combinations([0] + list(range(2,10)), 7):
     for p in permutations(variables):
         d = { z[0]: z[1] for z in zip(p, c) }
-        if d['R'] != 1:
-            continue
+        d['R'] = 1
         b = bunny(d)
         r = rabbit(d)
         if is_result(b,r):
