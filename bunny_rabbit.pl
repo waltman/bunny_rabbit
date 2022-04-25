@@ -6,14 +6,14 @@ use experimental qw(signatures);
 use Algorithm::Combinatorics qw(permutations combinations);
 
 # solve BUNNY + BUNNY = RABBIT
-my @var = split '', 'BUNYRAIT';
+my @var = split '', 'BUNYAIT';
 
-my $citer = combinations([0..9], 8);
+my $citer = combinations([0,2..9], 7);
 while (my $c = $citer->next) {
     my $piter = permutations(\@var);
     while (my $p = $piter->next) {
-        my %h = map { $p->[$_] => $c->[$_] } 0..7;
-        next unless $h{R} == 1;
+        my %h = map { $p->[$_] => $c->[$_] } 0..6;
+        $h{R} = 1;
         my $bunny = bunny(%h);
         my $rabbit = rabbit(%h);
         show_result($bunny, $rabbit) if is_result($bunny, $rabbit);
