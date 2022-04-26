@@ -4,6 +4,7 @@ use warnings;
 use feature qw(:5.34);
 use experimental qw(signatures);
 use Algorithm::Combinatorics qw(permutations combinations);
+use List::Util qw(zip);
 
 # solve BUNNY + BUNNY = RABBIT
 my @var = split '', 'BUNYAIT';
@@ -12,7 +13,7 @@ my $citer = combinations([0,2..9], 7);
 while (my $c = $citer->next) {
     my $piter = permutations(\@var);
     while (my $p = $piter->next) {
-        my %h = map { $p->[$_] => $c->[$_] } 0..6;
+        my %h = map { @$_ } zip($p, $c);
         $h{R} = 1;
         my $bunny = bunny(%h);
         my $rabbit = rabbit(%h);
